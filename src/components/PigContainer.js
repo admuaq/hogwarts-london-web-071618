@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PigList from './PigList.js'
 import UserControl from './UserControl.js'
 
+
 export default class PigContainer extends Component {
     constructor (props) {
         super(props)
@@ -25,13 +26,19 @@ export default class PigContainer extends Component {
         this.setState({ pigs : filtered })
     }
 
+    hideHog = (chosenPig) => {
+        console.log(chosenPig)
+        let filtered = this.state.pigs.filter( pig => pig !== chosenPig)
+        this.setState({ pigs : filtered })
+    }
+
     render () {
         // console.log(this.state.pigs)
         return (
             <div>
                 <UserControl filterGreased={this.filterPigs} filterByWeight ={this.filterPigsbyWeight}/>
                 <p></p>
-                <PigList pigs={this.state.pigs}/>
+                <PigList pigs={this.state.pigs} hidePig={this.hideHog}/>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+// import '../hog-imgs'
 
 export default class PigList extends Component {
 
@@ -13,25 +14,29 @@ showDetails = (e) => {
         } 
 }
 
-hidePig = (e) => { 
-    let chosenDiv = e.target.parent
-    console.log(chosenDiv)
-}
-
-
 
 render() {
+
+    const url = pig => {
+        const fileName = pig.name
+        .toLowerCase()
+        .replace(/\s/g, '_')
+
+        const imageUrl = require(`../hog-imgs/${fileName}.jpg`)
+    
+        return imageUrl
+    }
 
     return (
         <div className="ui grid container">
             {this.props.pigs.map( pig => 
                 <div className="ui eight wide column">
+                    <img src={ url(pig) } onClick={() => this.props.hidePig(pig)}/>
                     <h1 onClick={this.showDetails}>{pig.name}</h1>
                     <div className="details" style={ {display: 'none'} } >
                         <span>{pig.specialty}</span><br/>
                         <span>{`Is greased? : ${pig.greased}`}</span>
                     </div>
-                    <button onClick={ this.hidePig }>x</button>
                 </div>
             )}
         </div>
